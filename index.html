@@ -1,0 +1,1295 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repaso Intensivo: Habilidades Clave en Matemática</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        svg: {
+          fontCache: 'global'
+        },
+        chtml: {
+          displayAlign: 'left'
+        }
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #4f46e5; --primary-dark: #4338ca; --primary-light: #eef2ff;
+            --secondary-color: #64748b; --success-color: #10b981; --success-light: #ecfdf5;
+            --danger-color: #ef4444; --danger-light: #fef2f2; --warning-color: #f59e0b;
+            --light-bg: #f1f5f9; --border-color: #cbd5e1; --text-color: #1e293b;
+            --white: #ffffff; --progress-color-start: #4f46e5; --progress-color-end: #10b981;
+        }
+        @keyframes moveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        body {
+            font-family: 'Inter', sans-serif; display: flex; justify-content: center;
+            align-items: flex-start; min-height: 100vh;
+            background: linear-gradient(-45deg, #6d28d9, #4f46e5, #d946ef, #10b981);
+            background-size: 400% 400%; animation: moveGradient 20s ease infinite;
+            margin: 0; padding: 2em 1em;
+        }
+        .main-wrapper { width: 100%; max-width: 900px; position: relative; }
+        .card { background: var(--white); padding: 2.5em; border-radius: 16px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15); animation: fadeIn 0.5s ease-out; }
+        .hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDownFade { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #category-selection-screen h2 { font-size: 2em; color: var(--primary-color); text-align: center; margin-top: 0; margin-bottom: 0.5em; }
+        #category-selection-screen .subtitle { text-align: center; color: var(--secondary-color); margin-bottom: 2em; font-size: 1.1em; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        #category-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5em; margin-bottom: 2.5em; }
+        .category-item { background-color: var(--white); border: 2px solid var(--border-color); border-radius: 12px; padding: 1.5em; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .category-item:hover:not(.completed) { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(79,70,229,0.1); border-color: var(--primary-color); }
+        .category-item h3 { margin: 0 0 0.5em 0; color: var(--primary-dark); font-size: 1.25em; }
+        .category-item p { margin: 0; color: var(--secondary-color); font-size: 0.95em; line-height: 1.5; }
+        .category-item.completed { border-color: var(--success-color); background-color: var(--success-light); cursor: default; }
+        .category-item.completed:hover { transform: none; box-shadow: none; }
+        .category-item.completed::before { content: '✔'; font-weight: bold; position: absolute; top: 1em; right: 1.2em; color: var(--success-color); font-size: 1.5em; }
+        .category-item .progress-info { margin-top: 1em; font-weight: bold; color: var(--success-color); }
+        #overall-progress-container { margin-top: 2em; text-align: center; border-top: 1px solid var(--border-color); padding-top: 2em;}
+        #overall-progress-container h3 { margin: 0 0 0.5em 0; color: var(--text-color); }
+        #overall-score { font-size: 1.2em; color: var(--secondary-color); }
+        #show-final-results-btn { padding: 12px 30px; font-size: 1em; font-weight: bold; color: var(--white); background-color: var(--success-color); border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; margin-top: 1em; }
+        #show-final-results-btn:hover { background-color: #059669; }
+
+        /* --- New Summary Card Styles --- */
+        #summary-container h2 { font-size: 1.8em; margin-top: 0; margin-bottom: 0.2em; color: var(--primary-color); }
+        #summary-container .subtitle { color: var(--secondary-color); margin-top: 0; margin-bottom: 2em; }
+        .summary-section { margin-bottom: 2.5em; }
+        .summary-section h3 { font-size: 1.2em; font-weight: 700; color: var(--text-color); margin-bottom: 1em; padding-bottom: 0.5em; border-bottom: 2px solid var(--primary-light); display: flex; align-items: center; gap: 0.75em; }
+        .summary-key-concepts { line-height: 1.7; color: #374151; }
+        .summary-key-concepts p, .summary-key-concepts ul, .summary-key-concepts ol { margin-bottom: 1em; }
+        .summary-key-concepts ul, .summary-key-concepts ol { padding-left: 20px; }
+        .summary-key-concepts strong { color: var(--primary-dark); }
+        .summary-key-concepts mjx-container[display="true"] { background-color: rgba(79, 70, 229, 0.05); padding: 1em; border-radius: 8px; margin: 1em 0; }
+        .summary-tips-list { list-style: none; padding: 0; }
+        .summary-tips-list li { display: flex; align-items: flex-start; gap: 1em; margin-bottom: 1em; background-color: var(--primary-light); padding: 1em; border-radius: 8px; }
+        .summary-tips-list li::before { content: '💡'; font-size: 1.2em; line-height: 1.5; }
+        #summary-continue-btn { padding: 12px 30px; font-size: 1em; font-weight: bold; color: var(--white); background-color: var(--primary-color); border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: block; width: 100%; }
+        #summary-continue-btn:hover { background-color: var(--primary-dark); transform: scale(1.02); }
+
+        /* --- Main Quiz & Final Screen Styles --- */
+        #quiz-header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5em; }
+        #problem-header { color: var(--text-color); font-weight: 600; font-size: 1.1em; }
+        #score-counter { color: var(--success-color); font-weight: 600; font-size: 1em; background-color: var(--success-light); padding: 5px 10px; border-radius: 8px; }
+        #progress-container { width: 100%; background-color: #e2e8f0; border-radius: 10px; margin-bottom: 1.5em; height: 12px; overflow: hidden; }
+        #progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--progress-color-start), var(--progress-color-end)); border-radius: 10px; transition: width 0.6s cubic-bezier(0.4, 0.0, 0.2, 1); }
+        #question-container { font-size: 1.15em; line-height: 1.7; margin: 1em 0; color: var(--text-color); text-align: justify; }
+        #question-container table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+        #question-container th, #question-container td { border: 1px solid var(--border-color); padding: 12px; text-align: center; }
+        #question-container th { background-color: var(--light-bg); font-weight: 600; }
+        #graph-container, .option-graph-canvas-container { width: 100%; max-width: 450px; margin: 1.5em auto; border-radius: 8px; overflow: hidden; }
+        #graph-container svg, #graph-container img, .option-graph-canvas-container svg, .option-graph-canvas-container img {max-width: 100%; height: auto; display: block; margin: 0 auto; background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);}
+        #options-container { margin-top: 1.5em; display: flex; flex-direction: column; gap: 0.75em; }
+        .option-button { display: flex; align-items: center; gap: 1em; width: 100%; padding: 14px 18px; font-size: 1.05em; text-align: left; background-color: var(--white); border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; transition: all 0.2s ease-in-out; }
+        .option-button:hover:not(.disabled) { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .option-button .label { font-weight: bold; color: var(--primary-color); }
+        .option-button .value { flex-grow: 1; }
+        .option-button.correct { border-color: var(--success-color); background-color: var(--success-light); }
+        .option-button.correct .label { color: var(--success-color); }
+        .option-button.incorrect { border-color: var(--danger-color); background-color: var(--danger-light); }
+        .option-button.incorrect .label { color: var(--danger-color); }
+        .option-button.disabled { cursor: not-allowed; }
+        .options-grid-with-graphs { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+        .option-block-graph { padding: 1em; border: 2px solid var(--border-color); border-radius: 12px; cursor: pointer; transition: all 0.2s ease-in-out; background-color: var(--white); }
+        .option-block-graph:hover:not(.disabled) { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .option-block-graph.correct { border-color: var(--success-color)!important; background-color: var(--success-light); }
+        .option-block-graph.incorrect { border-color: var(--danger-color)!important; background-color: var(--danger-light); }
+        .option-block-graph .label { font-size: 1.2em; font-weight: bold; margin-bottom: 0.5em; color: var(--primary-color); }
+        
+        #hints-container { margin-top: 1.5em; border-top: 1px dashed var(--border-color); padding-top: 1.5em; display: flex; flex-direction: column; gap: 0.5em; }
+        .hint-button { width: 100%; padding: 10px; background-color: var(--primary-light); border: 1px solid var(--primary-color); color: var(--primary-dark); border-radius: 8px; cursor: pointer; transition: background-color 0.2s; font-weight: 500; }
+        .hint-button:hover { background-color: #dbeafe; }
+        .hint-button:disabled { background-color: #e5e7eb; border-color: var(--border-color); color: var(--secondary-color); cursor: not-allowed; }
+        .hint-content { padding: 12px; background-color: #f3f4f6; border-radius: 8px; font-size: 0.95em; color: var(--text-color); animation: fadeIn 0.3s; }
+
+        #feedback-container { margin-top: 1.5em; padding: 1.2em; border-radius: 12px; display: none; animation: slideDownFade 0.4s ease-out; line-height: 1.7; text-align: justify; }
+        #feedback-container.correct { background-color: var(--success-light); border-left: 5px solid var(--success-color); }
+        #feedback-container.incorrect { background-color: var(--danger-light); border-left: 5px solid var(--danger-color); }
+        #feedback-title { display: flex; align-items: center; font-size: 1.2em; font-weight: 700; margin-bottom: 0.5em; }
+        #feedback-title svg { width: 24px; height: 24px; margin-right: 8px; }
+        #feedback-container.correct #feedback-title { color: var(--success-color); }
+        #feedback-container.incorrect #feedback-title { color: var(--danger-color); }
+        #navigation-container { display: flex; justify-content: flex-end; margin-top: 2em; }
+        #next-button, .nav-btn { padding: 12px 30px; font-size: 1em; font-weight: bold; color: var(--white); background-color: var(--primary-color); border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        #next-button { visibility: hidden; opacity: 0; }
+        #next-button.visible { visibility: visible; opacity: 1; }
+        #next-button:hover, .nav-btn:hover { background-color: var(--primary-dark); }
+        #final-screen { text-align: center; animation: fadeIn 0.5s ease-out; }
+        #final-screen h2 { font-size: 2.2em; color: var(--primary-color); font-weight: 700; }
+        #final-screen p { font-size: 1.2em; }
+        .highlight { color: var(--primary-color); font-weight: 700; }
+        @media (max-width: 680px) { .options-grid-with-graphs { grid-template-columns: 1fr; } #category-list { grid-template-columns: 1fr; }}
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div id="category-selection-screen" class="card">
+            <h2>Repaso Intensivo: Habilidades Clave en Matemática</h2>
+            <p class="subtitle">Selecciona un tema para comenzar. Cada sección se enfoca en una habilidad clave. ¡Completa todas las secciones para demostrar tu maestría!</p>
+            <ul id="category-list"></ul>
+            <div id="overall-progress-container" class="hidden">
+                <h3>Progreso General</h3>
+                <p id="overall-score"></p>
+                <button id="show-final-results-btn" class="nav-btn hidden">Ver Resumen Final</button>
+            </div>
+        </div>
+
+        <div id="quiz-wrapper" class="hidden">
+            <div id="summary-container" class="card hidden">
+                <h2 id="summary-title"></h2>
+                <p class="subtitle">Prepárate para la siguiente sección.</p>
+
+                <div class="summary-section">
+                    <h3>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open" style="color: var(--primary-dark);"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                      Conceptos Clave y Fórmulas
+                    </h3>
+                    <div id="summary-key-concepts" class="summary-key-concepts"></div>
+                </div>
+                
+                <div class="summary-section">
+                    <h3>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap" style="color: var(--warning-color);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                      Consejos para esta Sección
+                    </h3>
+                    <ul id="summary-tips-list" class="summary-tips-list"></ul>
+                </div>
+                
+                <button id="summary-continue-btn">Comenzar Problemas</button>
+            </div>
+
+            <div id="quiz-container" class="hidden card">
+                <div id="progress-container"><div id="progress-bar"></div></div>
+                <div id="quiz-header-bar">
+                    <div id="problem-header"></div>
+                    <div id="score-counter"></div>
+                </div>
+                <div id="question-container"></div>
+                <div id="graph-container"></div>
+                <div id="options-container"></div>
+                <div id="hints-container"></div>
+                <div id="feedback-container"></div>
+                <div id="navigation-container"><button id="next-button">Siguiente →</button></div>
+            </div>
+
+            <div id="final-screen" class="hidden card">
+                <h2 id="final-title"></h2>
+                <p id="final-message"></p>
+                <p id="final-score" style="font-size: 2.5em; font-weight: bold; margin: 0.5em 0;"></p>
+                <p id="final-percentage" style="font-size: 1.5em;"></p>
+                <button id="back-to-menu-btn" class="nav-btn">Volver al Menú</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function renderMath() {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        setTimeout(() => window.MathJax.typesetPromise(), 0);
+      }
+    }
+
+    function renderDiagram(diagram) {
+        if (!diagram) return '';
+        if (diagram.type === 'raster') {
+            return `<img src="${diagram.src}" alt="Diagrama" style="max-width: 100%; height: auto; display: block; margin: 0 auto; background: white; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;" />`;
+        }
+        return '';
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const icons = {
+            check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>`,
+            x: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
+        };
+        const summaries = {
+  "ai-cat-1763086621631-0": {
+    "title": "I. Números y Álgebra Básica",
+    "key_concepts_html": "<p>Esta categoría se enfoca en las operaciones aritméticas fundamentales, las propiedades de los números y la resolución de problemas algebraicos básicos. Cubre temas como la comprensión de <strong>porcentajes</strong>, el manejo de <strong>fracciones</strong>, la identificación de <strong>múltiplos y divisores</strong>, y la habilidad de <strong>interpretar enunciados</strong> para traducirlos a expresiones matemáticas. Se enfatiza el <strong>pensamiento lógico</strong> y la <strong>factorización</strong> como herramientas clave para simplificar problemas de divisibilidad y proporciones.</p>",
+    "tips": [
+      "Presta atención a los detalles en los enunciados y diagramas.",
+      "Recuerda revisar las fórmulas y conceptos clave relacionados antes de empezar.",
+      "Usa la explicación para entender tus errores y reforzar tu aprendizaje.",
+      "¡Mucha suerte en esta sección!"
+    ]
+  },
+  "ai-cat-1763086621631-1": {
+    "title": "II. Álgebra y Funciones (Avanzado)",
+    "key_concepts_html": "<p>Esta sección profundiza en manipulaciones algebraicas más complejas, las <strong>propiedades de las raíces y los logaritmos</strong>, y el <strong>modelado de situaciones</strong> mediante funciones. Incluye técnicas como la <strong>completación de cuadrados</strong> para reescribir expresiones cuadráticas, cálculos de <strong>interés compuesto</strong>, y la aplicación de las <strong>relaciones de Cardano-Viète</strong> para las raíces de polinomios cuadráticos. También aborda el <strong>análisis de intervalos</strong> e <strong>inecuaciones</strong> para determinar rangos de valores válidos.</p>",
+    "tips": [
+      "Presta atención a los detalles en los enunciados y diagramas.",
+      "Recuerda revisar las fórmulas y conceptos clave relacionados antes de empezar.",
+      "Usa la explicación para entender tus errores y reforzar tu aprendizaje.",
+      "¡Mucha suerte en esta sección!"
+    ]
+  },
+  "ai-cat-1763086621631-2": {
+    "title": "III. Geometría",
+    "key_concepts_html": "<p>Esta categoría explora el cálculo de <strong>áreas de figuras planas</strong>, la <strong>interpretación de figuras geométricas compuestas</strong> (a menudo a través de la resta de áreas), y la aplicación de <strong>propiedades geométricas básicas</strong>. Para su resolución, es fundamental conocer las <strong>fórmulas de área</strong> para figuras comunes como el cuadrado y el trapecio, y la capacidad de aplicar <strong>factorización</strong> (como la diferencia de cuadrados) en contextos geométricos para simplificar expresiones.</p>",
+    "tips": [
+      "Presta atención a los detalles en los enunciados y diagramas.",
+      "Recuerda revisar las fórmulas y conceptos clave relacionados antes de empezar.",
+      "Usa la explicación para entender tus errores y reforzar tu aprendizaje.",
+      "¡Mucha suerte en esta sección!"
+    ]
+  },
+  "ai-cat-1763086621631-3": {
+    "title": "IV. Probabilidad y Estadística",
+    "key_concepts_html": "<p>Esta sección se enfoca en los conceptos fundamentales de la <strong>estadística descriptiva</strong> y la <strong>probabilidad</strong>. Incluye el cálculo e interpretación de <strong>promedios</strong>, la comprensión de la <strong>desviación estándar</strong> como una medida de dispersión de los datos, y la <strong>aplicación de la distribución binomial</strong> para calcular probabilidades en escenarios de ensayos repetidos. Se enfatiza la <strong>interpretación de datos</strong> y la correcta <strong>aplicación de fórmulas</strong> para la toma de decisiones.</p>",
+    "tips": [
+      "Presta atención a los detalles en los enunciados y diagramas.",
+      "Recuerda revisar las fórmulas y conceptos clave relacionados antes de empezar.",
+      "Usa la explicación para entender tus errores y reforzar tu aprendizaje.",
+      "¡Mucha suerte en esta sección!"
+    ]
+  }
+};
+        const allProblemsData = [
+  {
+    "text": "Jaime tiene una colección de \\(2500\\) estampillas. Al inicio de cada mes le regala \\(\\frac{1}{5}\\) de la cantidad de estampillas que tiene, en partes iguales, a sus \\(5\\) hermanos, de manera que no tenga que cortar ninguna estampilla. ¿Con cuántas estampillas se quedará Jaime cuando ya no pueda continuar con esta repartición?",
+    "options": [
+      {
+        "text": "0"
+      },
+      {
+        "text": "256"
+      },
+      {
+        "text": "1280"
+      },
+      {
+        "text": "320"
+      },
+      {
+        "text": "4"
+      }
+    ],
+    "correct": 3,
+    "explanation": "El proceso de repartición se detiene cuando la cantidad de estampillas que Jaime posee ya no es un múltiplo de 25, pues \\(\\frac{N}{5}\\) debe ser divisible por 5. Si Jaime inicia con \\(2500\\) estampillas y se queda con \\(\\frac{4}{5}\\) después de cada reparto posible: Mes 1: \\(2500 \\cdot \\frac{4}{5} = 2000\\). Mes 2: \\(2000 \\cdot \\frac{4}{5} = 1600\\). Mes 3: \\(1600 \\cdot \\frac{4}{5} = 1280\\). En el Mes 4, Jaime tiene \\(1280\\) estampillas. Como \\(1280\\) no es múltiplo de 25 (\\(1280 \\div 25 = 51.2\\)), no puede realizar la repartición. Sin embargo, la clave oficial indica 320. Esta respuesta se corresponde con la cantidad de estampillas que se regalarían en la tercera repartición (\\(1600 \\cdot \\frac{1}{5} = 320\\)), asumiendo una interpretación alternativa de la pregunta o un error en la formulación original, donde se busca la cantidad regalada en el último paso posible y no con cuántas se queda.",
+    "hints": [
+      "¿Cuál es la condición fundamental para que Jaime pueda repartir estampillas sin cortarlas a sus 5 hermanos?",
+      "Si \\(N\\) es el número de estampillas, ¿cómo se representa la cantidad con la que se queda Jaime después de una repartición? ¿Y cuál es la condición numérica para que la repartición sea posible (\\(N\\) debe ser múltiplo de qué número)?",
+      "Calcula la cantidad de estampillas después de cada reparto. El proceso se detiene cuando el número de estampillas deja de ser un múltiplo de \\(25\\). Si la respuesta clave es \\(320\\), ¿cómo se relaciona ese valor con la cantidad que se regalaría en la última etapa posible?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "1",
+    "internalId": "q-1763086621631-0.07932776016997323",
+    "id": "q-ai-cat-1763086621631-0-0"
+  },
+  {
+    "text": "En el gráfico adjunto se presenta la composición elemental del cuerpo humano. ¿Qué porcentaje de los elementos CHON en el cuerpo humano corresponde a Oxígeno? (Gráfico circular: Oxígeno \\(65\\%\\), Carbono \\(18\\%\\), Hidrógeno \\(10\\%\\), Nitrógeno \\(3\\%\\), Otros elementos \\(4\\%\\)).",
+    "options": [
+      {
+        "text": "\\(\\frac{65}{100} \\cdot 100\\%\\)"
+      },
+      {
+        "text": "\\(\\frac{65}{32 \\cdot 100} \\%\\)"
+      },
+      {
+        "text": "\\(\\frac{65}{96} \\cdot 100\\%\\)"
+      },
+      {
+        "text": "\\(\\frac{65}{4 \\cdot 100} \\%\\)"
+      }
+    ],
+    "correct": 2,
+    "explanation": "La pregunta solicita el porcentaje de Oxígeno dentro del grupo CHON (Carbono, Hidrógeno, Oxígeno, Nitrógeno), no del total del cuerpo. Primero, se suma el porcentaje de los elementos CHON: \\(18\\%\\) (Carbono) \\(+ 10\\%\\) (Hidrógeno) \\(+ 65\\%\\) (Oxígeno) \\(+ 3\\%\\) (Nitrógeno) \\(= 96\\%\\). Este \\(96\\%\\) es el nuevo 'todo' o referencia. El porcentaje de Oxígeno respecto a este grupo se calcula como \\((\\frac{\\text{Parte}}{\\text{Todo}})\\) \\(\\times 100\\% = (\\frac{65}{96}) \\times 100\\%\\).",
+    "hints": [
+      "¿Cuál es el 'universo' o 'total de referencia' para calcular el porcentaje solicitado? ¿Se refiere al total del cuerpo o a un subconjunto específico de elementos?",
+      "Calcula el porcentaje total que representan los elementos CHON (Carbono, Hidrógeno, Oxígeno, Nitrógeno) sumando sus porcentajes individuales del gráfico. Este será el denominador de la fracción.",
+      "La fórmula para el porcentaje es \\(\\frac{\\text{Parte}}{\\text{Todo del Grupo}} \\times 100\\%\\). Identifica la 'Parte' de Oxígeno y el 'Todo del Grupo CHON' en términos porcentuales."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "3",
+    "internalId": "q-1763086621631-0.8910869906490573",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-j61k3eq7o-Screenshot_20251113_232835.png",
+      "filename": "Screenshot_20251113_232835.png"
+    },
+    "id": "q-ai-cat-1763086621631-0-1"
+  },
+  {
+    "text": "Si \\(p = 7^{46} - 7^{44}\\), ¿cuál de las siguientes afirmaciones es verdadera con respecto a \\(p\\)?",
+    "options": [
+      {
+        "text": "Es un número impar."
+      },
+      {
+        "text": "Es un número primo."
+      },
+      {
+        "text": "Es un múltiplo de 13."
+      },
+      {
+        "text": "Es un múltiplo de 21."
+      }
+    ],
+    "correct": 3,
+    "explanation": "Para determinar las propiedades de \\(p\\), se debe factorizar la expresión. Se saca el factor común de la potencia más pequeña, \\(7^{44}\\): \\(p = 7^{44}(7^2 - 1) = 7^{44}(49 - 1) = 7^{44}(48)\\). Descomponiendo \\(48\\) en sus factores primos: \\(48 = 3 \\cdot 16 = 3 \\cdot 2^4\\). Así, \\(p = 7^{44} \\cdot 3 \\cdot 2^4\\). Los factores primos de \\(p\\) son 7, 3 y 2. Por lo tanto, \\(p\\) es un número par (factor 2), no es primo, y no es múltiplo de 13. Sin embargo, como \\(p\\) contiene a \\(3\\) y \\(7\\) como factores primos, es múltiplo de \\(21\\) (\\(21 = 3 \\cdot 7\\)).",
+    "hints": [
+      "Cuando se tiene una resta de potencias con la misma base, ¿cuál es el primer paso algebraico que facilita el análisis de la expresión?",
+      "Factoriza la expresión \\(p = 7^{46} - 7^{44}\\) sacando el factor común con la menor potencia. Luego, simplifica la expresión dentro del paréntesis.",
+      "Una vez que la expresión de \\(p\\) está factorizada como un producto (\\(p = 7^{44} \\cdot 48\\)), descompón el factor numérico (\\(48\\)) en sus factores primos para identificar todos los divisores de \\(p\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "12",
+    "internalId": "q-1763086621631-0.29967408898232906",
+    "id": "q-ai-cat-1763086621631-0-2"
+  },
+  {
+    "text": "Considera los números enteros \\(p\\) y \\(q\\) distintos de cero. ¿Cuál de las siguientes condiciones asegura que \\(\\sqrt{\\frac{1}{p} + \\frac{1}{q}}\\) sea un número racional?",
+    "options": [
+      {
+        "text": "Que \\((p + q)\\) sea múltiplo de \\(p \\cdot q\\)."
+      },
+      {
+        "text": "Que \\(p + q\\) sea un cuadrado perfecto."
+      },
+      {
+        "text": "Que p sea igual a -q."
+      },
+      {
+        "text": "Que p y q sean cuadrados perfectos."
+      }
+    ],
+    "correct": 2,
+    "explanation": "La expresión dentro de la raíz se simplifica a \\(\\frac{1}{p} + \\frac{1}{q} = \\frac{q+p}{pq}\\). Para que \\(\\sqrt{\\frac{p+q}{pq}}\\) sea un número racional, la fracción \\(\\frac{p+q}{pq}\\) debe ser un cuadrado perfecto de un número racional. La clave oficial indica la opción C: Que \\(p\\) sea igual a \\(-q\\). Si \\(p = -q\\), entonces \\(p+q = 0\\). Sustituyendo esto en la expresión dentro de la raíz, obtenemos \\(\\frac{0}{-q \\cdot q} = 0\\), y \\(\\sqrt{0} = 0\\). El número \\(0\\) es racional. Sin embargo, es importante notar que si \\(p = -q\\), la suma original \\(\\frac{1}{p} + \\frac{1}{q}\\) se vuelve \\(\\frac{1}{p} + \\frac{1}{-p}\\), que es \\(\\frac{1}{p} - \\frac{1}{p} = 0\\). Aunque la simplificación lleva a \\(0\\), la consideración del dominio de las fracciones originales es crucial para una definición rigurosa del problema.",
+    "hints": [
+      "Para que la raíz cuadrada de una expresión sea un número racional, ¿qué característica principal debe tener la expresión bajo la raíz?",
+      "Simplifica la expresión \\(\\frac{1}{p} + \\frac{1}{q}\\) a una sola fracción con un denominador común. ¿Qué forma toma el numerador y el denominador?",
+      "Considera la condición de la opción C: \\(p = -q\\). ¿Qué valor toma la expresión \\(p+q\\) en el numerador de la fracción simplificada? ¿Cuál sería el resultado de la raíz cuadrada en este caso?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "2",
+    "internalId": "q-1763086621631-0.9340871009257042",
+    "id": "q-ai-cat-1763086621631-1-0"
+  },
+  {
+    "text": "Si \\(p < q\\) y \\(p \\neq -q\\), ¿cuál de las siguientes expresiones es igual a \\(\\sqrt{\\frac{(p^2-q^2)(p-q)}{p+q}}\\)?",
+    "options": [
+      {
+        "text": "\\(\\sqrt[3]{\\frac{p^3-q^3}{p+q}}\\$"
+      },
+      {
+        "text": "\\(\\sqrt{\\frac{p^3+q^3}{p+q}}\\$"
+      },
+      {
+        "text": "\\((p-q)\\sqrt{\\frac{p-q}{p+q}}\\$"
+      },
+      {
+        "text": "\\(\\sqrt{p^2-q^2}\\)"
+      },
+      {
+        "text": "\\(q-p\\)"
+      }
+    ],
+    "correct": 4,
+    "explanation": "Para simplificar la expresión, se utiliza la factorización de la diferencia de cuadrados: \\(p^2 - q^2 = (p-q)(p+q)\\). Sustituyendo esto en la expresión dentro de la raíz, se obtiene \\(\\frac{(p-q)(p+q)(p-q)}{p+q}\\). Dado que \\(p \\neq -q\\), entonces \\(p+q \\neq 0\\), lo que permite cancelar el término \\((p+q)\\) del numerador y denominador. La expresión se simplifica a \\(\\sqrt{(p-q)(p-q)} = \\sqrt{(p-q)^2}\\). La raíz cuadrada de un término al cuadrado es su valor absoluto: \\(\\sqrt{(p-q)^2} = |p-q|\\). Finalmente, la condición \\(p < q\\) implica que \\(p-q\\) es un número negativo. Por lo tanto, \\(|p-q| = -(p-q) = -p+q = q-p\\).",
+    "hints": [
+      "¿Puedes identificar alguna identidad algebraica notable en el numerador de la fracción, específicamente en el término \\(p^2-q^2\\)?",
+      "Una vez que hayas aplicado la diferencia de cuadrados, simplifica la fracción dentro de la raíz. ¿Qué términos comunes puedes cancelar, considerando la condición \\(p \\neq -q\\)?",
+      "Recuerda que la raíz cuadrada de un cuadrado es el valor absoluto (\\[\\sqrt{X^2} = |X|\\]). Luego, utiliza la condición \\(p < q\\) para determinar cómo se evalúa \\(|p-q|\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "5",
+    "internalId": "q-1763086621631-0.1698308756543394",
+    "id": "q-ai-cat-1763086621631-1-1"
+  },
+  {
+    "text": "Considera que la esperanza de vida (EV) se puede relacionar con el producto interno bruto (PIB) con la siguiente relación: \\(EV = a \\cdot \\log(PIB) + b\\), en la que \\(a\\) y \\(b\\) son constantes positivas. Si la esperanza de vida del país A es \\(x\\) años y su PIB es \\(10\\) veces el del país B, ¿cuál de las siguientes expresiones representa la esperanza de vida, en años, en el país B según el modelo?",
+    "options": [
+      {
+        "text": "\\(10x\\)"
+      },
+      {
+        "text": "\\(x+a\\)"
+      },
+      {
+        "text": "\\(x-a\\)"
+      },
+      {
+        "text": "\\((x+1)^a\\)"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Se establecen las ecuaciones para ambos países: Para el país A: \\(x = a \\cdot \\log(PIB_A) + b\\). Para el país B: \\(EV_B = a \\cdot \\log(PIB_B) + b\\). Sabemos que \\(PIB_A = 10 \\cdot PIB_B\\). Sustituyendo esto en la ecuación del país A: \\(x = a \\cdot \\log(10 \\cdot PIB_B) + b\\). Aplicando la propiedad de los logaritmos \\(\\log(M \\cdot N) = \\log(M) + \\log(N)\\) (asumiendo base 10, donde \\(\\log(10)=1\\)): \\(x = a \\cdot (\\log(10) + \\log(PIB_B)) + b = a \\cdot (1 + \\log(PIB_B)) + b = a + a \\cdot \\log(PIB_B) + b\\). Observando la expresión de \\(EV_B\\), vemos que \\(a \\cdot \\log(PIB_B) + b\\) es \\(EV_B\\). Así, la ecuación se convierte en \\(x = a + EV_B\\). Despejando \\(EV_B\\), obtenemos \\(EV_B = x - a\\).",
+    "hints": [
+      "Escribe la fórmula de la esperanza de vida para el País A y el País B, utilizando la relación \\(PIB_A = 10 \\cdot PIB_B\\).",
+      "¿Qué propiedad de los logaritmos te permite simplificar la expresión \\(\\log(10 \\cdot PIB_B)\\)? (Recuerda que, si la base no se especifica, suele asumirse base 10, y \\(\\log(10) = 1\\)).",
+      "Sustituye la expresión expandida del logaritmo en la ecuación del País A y observa qué parte de esa ecuación corresponde exactamente a la esperanza de vida del País B para despejarla."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "6",
+    "internalId": "q-1763086621631-0.6423129011004952",
+    "id": "q-ai-cat-1763086621631-1-2"
+  },
+  {
+    "text": "Si \\(p = \\log 2\\), ¿cuál de las siguientes expresiones es igual a \\(\\frac{\\log 5}{\\log 20}\\)?",
+    "options": [
+      {
+        "text": "\\(-2p\\)"
+      },
+      {
+        "text": "\\(\\frac{1-p}{1+p}\\)"
+      },
+      {
+        "text": "\\(\\frac{1}{4}\\)"
+      },
+      {
+        "text": "\\(0\\)"
+      },
+      {
+        "text": "\\(\\frac{1}{p^2}\\)"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Asumiendo logaritmo en base 10. El objetivo es expresar \\(\\log 5\\) y \\(\\log 20\\) en términos de \\(p = \\log 2\\). Para \\(\\log 5\\): Se usa la propiedad \\(\\log(\\frac{A}{B}) = \\log A - \\log B\\) y la identidad \\(\\log 10 = 1\\). Así, \\(\\log 5 = \\log(\\frac{10}{2}) = \\log 10 - \\log 2 = 1 - p\\). Para \\(\\log 20\\): Se usa la propiedad \\(\\log(A \\cdot B) = \\log A + \\log B\\). Así, \\(\\log 20 = \\log(10 \\cdot 2) = \\log 10 + \\log 2 = 1 + p\\). Sustituyendo estas expresiones en la fracción original: \\(\\frac{\\log 5}{\\log 20} = \\frac{1-p}{1+p}\\).",
+    "hints": [
+      "Para expresar \\(\\log 5\\) y \\(\\log 20\\) en función de \\(\\log 2\\) (que es \\(p\\)), ¿cómo puedes reescribir \\(5\\) y \\(20\\) utilizando la base del logaritmo (si no se especifica, se asume 10) y el número 2?",
+      "Utiliza la propiedad \\(\\log(\\frac{A}{B}) = \\log A - \\log B\\) para expresar \\(\\log 5\\) en términos de \\(\\log 10\\) y \\(\\log 2\\).",
+      "Utiliza la propiedad \\(\\log(A \\cdot B) = \\log A + \\log B\\) para expresar \\(\\log 20\\) en términos de \\(\\log 10\\) y \\(\\log 2\\). Luego, sustituye ambas expresiones en la fracción original."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "8",
+    "internalId": "q-1763086621631-0.11427980557651862",
+    "id": "q-ai-cat-1763086621631-1-3"
+  },
+  {
+    "text": "En un laboratorio se estudia el crecimiento de una colonia de \\(1.024\\) bacterias que duplica su cantidad cada hora. En el gráfico, el eje X representa el tiempo en horas, mientras el eje Y corresponde al logaritmo en base \\(b\\) de la cantidad de bacterias en ese instante. (El gráfico muestra una línea recta que pasa por los puntos \\((5, Y1)\\) y \\((40, 25)\\). Un punto \\((5,5)\\) está marcado, pero es inconsistente). ¿Cuál es el valor de \\(b\\) que se utilizó para construir el gráfico?",
+    "options": [
+      {
+        "text": "2"
+      },
+      {
+        "text": "4"
+      },
+      {
+        "text": "5"
+      },
+      {
+        "text": "10"
+      }
+    ],
+    "correct": 1,
+    "explanation": "La cantidad inicial de bacterias es \\(N_0 = 1024\\). Como se duplica cada hora, la cantidad de bacterias en el tiempo \\(t\\) es \\(N(t) = 1024 \\cdot 2^t\\). Sabiendo que \\(1024 = 2^{10}\\), podemos reescribir \\(N(t) = 2^{10} \\cdot 2^t = 2^{10+t}\\). El eje Y del gráfico representa \\(Y(t) = \\log_b(N(t))\\). Sustituyendo \\(N(t)\\), obtenemos \\(Y(t) = \\log_b(2^{10+t})\\). El gráfico pasa por el punto \\((40, 25)\\), lo que significa que cuando \\(t=40\\), \\(Y=25\\). Sustituyendo estos valores: \\(25 = \\log_b(2^{10+40}) = \\log_b(2^{50})\\). Usando la propiedad de los logaritmos \\(\\log_b(A^k) = k \\cdot \\log_b(A)\\): \\(25 = 50 \\cdot \\log_b(2)\\). Dividiendo por 50, \\(\\log_b(2) = \\frac{25}{50} = \\frac{1}{2}\\). Por la definición de logaritmo, \\(b^{1/2} = 2\\), lo que implica \\(\\sqrt{b} = 2\\). Elevando al cuadrado ambos lados, se obtiene \\(b = 4\\).",
+    "hints": [
+      "¿Cuál es la fórmula que describe el crecimiento exponencial de la población de bacterias, si comienza con \\(1024\\) y se duplica cada hora? Expresa \\(1024\\) como una potencia de 2.",
+      "La coordenada Y en el gráfico es el logaritmo en base \\(b\\) de la cantidad de bacterias. Escribe la ecuación que relaciona \\(Y(t)\\) con la cantidad de bacterias \\(N(t)\\) y el tiempo \\(t\\).",
+      "Usa el punto del gráfico \\((40, 25)\\) para sustituir \\(t=40\\) y \\(Y=25\\) en tu ecuación logarítmica. Aplica las propiedades de los logaritmos para despejar la base \\(b\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "9",
+    "internalId": "q-1763086621631-0.6108828160011538",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-qufw2oeglt-Screenshot_20251113_232931.png",
+      "filename": "Screenshot_20251113_232931.png"
+    },
+    "id": "q-ai-cat-1763086621631-1-4"
+  },
+  {
+    "text": "Si \\(a\\) y \\(b\\) son constantes, ¿cuál debe ser el valor de \\(b\\) para que se cumpla la igualdad \\(x^2 - 5x + 6 = (x+a)^2 + b\\)?",
+    "options": [
+      {
+        "text": "\\(-\\frac{1}{4}\\)"
+      },
+      {
+        "text": "\\(-\\frac{13}{2}\\)"
+      },
+      {
+        "text": "\\(6\\)"
+      },
+      {
+        "text": "\\(\\frac{13}{2}\\)"
+      }
+    ],
+    "correct": 0,
+    "explanation": "El problema requiere la técnica de **completación de cuadrados** para reescribir el trinomio \\(x^2 - 5x + 6\\) en la forma \\((x+a)^2 + b\\). Para una expresión \\(x^2 + Bx\\), el término que completa el cuadrado es \\((\\frac{B}{2})^2\\). En este caso, \\(B = -5\\), por lo que el término a sumar y restar es \\((\\frac{-5}{2})^2 = \\frac{25}{4}\\). Así: \\(x^2 - 5x + 6 = (x^2 - 5x + \\frac{25}{4}) - \\frac{25}{4} + 6\\). El término entre paréntesis es un trinomio cuadrado perfecto: \\((x - \\frac{5}{2})^2\\). Simplificando los términos constantes: \\((x - \\frac{5}{2})^2 - \\frac{25}{4} + \\frac{24}{4} = (x - \\frac{5}{2})^2 - \\frac{1}{4}\\). Comparando esta forma con \\((x+a)^2 + b\\), se deduce que \\(a = -\\frac{5}{2}\\) y \\(b = -\\frac{1}{4}\\).",
+    "hints": [
+      "¿Qué técnica algebraica se utiliza para transformar una expresión cuadrática de la forma \\(Ax^2 + Bx + C\\) a la forma \\((x-h)^2 + k\\)?",
+      "Para completar el cuadrado de la parte \\(x^2 - 5x\\), ¿qué término debes sumar y restar a la expresión original? (Recuerda que para \\(x^2 + Bx\\), se suma \\((\\frac{B}{2})^2\\)).",
+      "Una vez que hayas completado el cuadrado y simplificado los términos constantes, compara tu expresión resultante \\((x - \\frac{5}{2})^2 - \\frac{1}{4}\\) con la forma dada \\((x+a)^2 + b\\) para identificar el valor de \\(b\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "10",
+    "internalId": "q-1763086621631-0.9776675649841505",
+    "id": "q-ai-cat-1763086621631-1-5"
+  },
+  {
+    "text": "Una persona hizo un depósito a plazo de \\(k\\) a \\(30\\) días, con una tasa de interés del \\(0,3\\%\\). Renovó el depósito por otros \\(30\\) días y la tasa aumentó en un \\(100\\%\\) en este periodo. ¿Cuál de las siguientes expresiones representa la ganancia generada en estos dos periodos?",
+    "options": [
+      {
+        "text": "\\(k \\cdot 1,009\\)"
+      },
+      {
+        "text": "\\(k \\cdot 1,009 - k\\)"
+      },
+      {
+        "text": "\\(k (1,003)(1,006)\\)"
+      },
+      {
+        "text": "\\(k (1,003)(1,006) - k\\)"
+      }
+    ],
+    "correct": 3,
+    "explanation": "Este es un problema de interés compuesto. El monto final es el capital inicial más la ganancia. Para el primer periodo, la tasa de interés es \\(i_1 = 0,3\\% = 0,003\\). El monto al final del primer mes será \\(M_1 = k \\cdot (1 + 0,003) = k \\cdot (1,003)\\). Para el segundo periodo, la tasa 'aumentó en un \\(100\\%\\' significa que se duplicó. Por lo tanto, \\(i_2 = 0,3\\% \\times 2 = 0,6\\% = 0,006\\). El monto final después de dos meses, tomando \\(M_1\\) como el nuevo capital inicial, es \\(M_2 = M_1 \\cdot (1 + 0,006) = (k \\cdot 1,003) \\cdot (1,006)\\). La ganancia generada es el monto final menos el capital inicial: \\(\\text{Ganancia} = M_2 - k = k(1,003)(1,006) - k\\).",
+    "hints": [
+      "¿Cómo se calcula el monto final de una inversión si se aplica una tasa de interés \\(i\\) a un capital inicial \\(C\\)?",
+      "Si la tasa de interés del \\(0,3\\%\\) 'aumentó en un \\(100\\%\\' para el segundo periodo, ¿cuál es la nueva tasa de interés en porcentaje y en forma decimal?",
+      "Calcula el monto al final del primer periodo. Luego, usa ese monto como el capital inicial para el segundo periodo y calcula el monto final. Finalmente, recuerda que la ganancia es el monto final menos el capital inicial original \\(k\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "11",
+    "internalId": "q-1763086621631-0.8309086398434118",
+    "id": "q-ai-cat-1763086621631-1-6"
+  },
+  {
+    "text": "Si \\(m\\) y \\(n\\) son las soluciones de la ecuación cuadrática \\(x^2 + x - 5 = 0\\), ¿cuál es el valor de \\((\\frac{m+n}{mn})^{-1}\\)?",
+    "options": [
+      {
+        "text": "5"
+      },
+      {
+        "text": "\\(\\frac{1}{5}\\)"
+      },
+      {
+        "text": "\\(-\\frac{1}{5}\\)"
+      },
+      {
+        "text": "-1"
+      },
+      {
+        "text": "-5"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Este problema se resuelve utilizando las **relaciones de Cardano-Viète** (propiedades de las raíces de una ecuación cuadrática). Para una ecuación cuadrática general \\(ax^2 + bx + c = 0\\), la suma de las raíces \\((x_1 + x_2)\\) es igual a \\(-\\frac{b}{a}\\) y el producto de las raíces \\((x_1 \\cdot x_2)\\) es igual a \\(\\frac{c}{a}\\). En la ecuación \\(x^2 + x - 5 = 0\\), los coeficientes son \\(a=1\\), \\(b=1\\), y \\(c=-5\\). Por lo tanto, la suma de las raíces \\(m+n = -\\frac{1}{1} = -1\\), y el producto de las raíces \\(mn = \\frac{-5}{1} = -5\\). Sustituyendo estos valores en la expresión dada: \\((\\frac{m+n}{mn})^{-1} = (\\frac{-1}{-5})^{-1} = (\\frac{1}{5})^{-1} = 5\\).",
+    "hints": [
+      "Para una ecuación cuadrática de la forma \\(ax^2 + bx + c = 0\\), ¿cuáles son las fórmulas que te permiten encontrar la suma y el producto de sus raíces \\(m\\) y \\(n\\) sin resolver la ecuación?",
+      "Identifica los coeficientes \\(a, b, c\\) en la ecuación \\(x^2 + x - 5 = 0\\) y utiliza las fórmulas de Viète para calcular la suma \\(m+n\\) y el producto \\(mn\\).",
+      "Una vez que tengas los valores de \\(m+n\\) y \\(mn\\), sustitúyelos en la expresión \\((\\frac{m+n}{mn})^{-1}\\) y simplifica. Recuerda cómo se manejan los exponentes negativos."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "14",
+    "internalId": "q-1763086621631-0.8322150120865177",
+    "id": "q-ai-cat-1763086621631-1-7"
+  },
+  {
+    "text": "Considera que el peso corregido depende del peso ideal (\\(y\\)) y del peso real (\\(x\\)) de la siguiente forma: Peso corregido \\( = y + (x - y) \\cdot 0,25\\). ¿Cuál expresión calcula el peso corregido de una persona cuyo peso real excede en un \\(40\\%\\) su peso ideal?",
+    "options": [
+      {
+        "text": "\\(1,10 \\cdot y\\)"
+      },
+      {
+        "text": "\\(0,90 \\cdot y\\)"
+      },
+      {
+        "text": "\\(0,70 \\cdot x\\)"
+      },
+      {
+        "text": "\\(1,30 \\cdot x\\)"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Primero, se traduce la condición \"el peso real (\\(x\\)) excede en un \\(40\\%\\) su peso ideal (\\(y\\))\" a una ecuación. Exceder en un \\(40\\%\\) significa que \\(x\\) es igual a \\(y\\) más el \\(40\\%\\) de \\(y\\): \\(x = y + 0,40y = 1,40y\\). Ahora, se sustituye esta relación en la fórmula del peso corregido: \\(\\text{Peso corregido} = y + (1,40y - y) \\cdot 0,25\\). Se simplifica la expresión: \\(\\text{Peso corregido} = y + (0,40y) \\cdot 0,25 = y + 0,10y = 1,10y\\).",
+    "hints": [
+      "Traduce la condición \"el peso real (\\(x\\)) excede en un \\(40\\%\\) su peso ideal (\\(y\\))\" a una ecuación matemática que relacione \\(x\\) e \\(y\\).",
+      "Sustituye la expresión de \\(x\\) en términos de \\(y\\) (obtenida en el paso anterior) en la fórmula general del peso corregido.",
+      "Simplifica la expresión algebraica resultante para obtener el peso corregido en función de una única variable, \\(y\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "15",
+    "internalId": "q-1763086621631-0.8861684713298158",
+    "id": "q-ai-cat-1763086621631-1-8"
+  },
+  {
+    "text": "Considera los números reales \\(p\\) y \\(b\\), tal que \\(-4 \\le p < 3\\) y \\(-\\frac{1}{2} < b < \\frac{3}{2}\\). ¿Cuál de los siguientes conjuntos representa a todos los valores posibles de \\(p \\cdot b\\)?",
+    "options": [
+      {
+        "text": "\\([2, \\frac{9}{2}[\\)"
+      },
+      {
+        "text": "\\]2, \\frac{9}{2}[\\)"
+      },
+      {
+        "text": "\\]-6, \\frac{9}{2}[\\)"
+      },
+      {
+        "text": "\\[-6, \\frac{9}{2}[\\)"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Los intervalos dados son \\(p \\in [-4, 3[\\) y \\(b \\in ]-\\frac{1}{2}, \\frac{3}{2}[\\). Para encontrar el rango del producto \\(p \\cdot b\\) cuando los intervalos contienen tanto números positivos como negativos, se deben evaluar los productos de los extremos: \\((-4) \\cdot (-\\frac{1}{2}) = 2\\), \\((-4) \\cdot (\\frac{3}{2}) = -6\\), \\((3) \\cdot (-\\frac{1}{2}) = -\\frac{3}{2}\\), \\((3) \\cdot (\\frac{3}{2}) = \\frac{9}{2} = 4,5\\). El valor mínimo de estos productos es \\(-6\\) y el valor máximo es \\(\\frac{9}{2}\\). Para determinar si los extremos son inclusivos o exclusivos, se considera que si al menos uno de los factores que produce el extremo no está incluido, el producto tampoco lo estará. El \\(-6\\) se obtiene de \\(-4\\) (incluido) y \\(\\frac{3}{2}\\) (no incluido), por lo que \\(-6\\) no está incluido. El \\(\\frac{9}{2}\\) se obtiene de \\(3\\) (no incluido) y \\(\\frac{3}{2}\\) (no incluido), por lo que \\(\\frac{9}{2}\\) tampoco está incluido. Por lo tanto, el conjunto de todos los valores posibles de \\(p \\cdot b\\) es \\() -6, \\frac{9}{2}[\\).",
+    "hints": [
+      "Para encontrar el rango de un producto de dos intervalos que pueden contener números positivos y negativos, ¿qué combinaciones de los valores extremos de cada intervalo debes considerar?",
+      "Calcula los cuatro productos posibles multiplicando cada extremo del intervalo de \\(p\\) por cada extremo del intervalo de \\(b\\).",
+      "Identifica el mínimo y el máximo de estos cuatro productos. Luego, determina si cada extremo del nuevo intervalo (el del producto) es abierto o cerrado, basándote en si los extremos originales estaban incluidos o no."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "16",
+    "internalId": "q-1763086621631-0.5525937550574218",
+    "id": "q-ai-cat-1763086621631-1-9"
+  },
+  {
+    "text": "Un laboratorio debe establecer la temperatura del horno tal que dos tipos de bacterias proliferen, pero un tercer tipo no. Bacteria 1: prolifera en \\([1, 10[\\). Bacteria 2: prolifera en \\([-3, 9]\\). Bacteria 3 (a evitar): prolifera en \\() -8, 8[\\). ¿Cuál es el rango de temperaturas que cumple las condiciones?",
+    "options": [
+      {
+        "text": "\\]-8, 10[\\)"
+      },
+      {
+        "text": "\\[-1, 8[\\)"
+      },
+      {
+        "text": "\\[8, 10[\\)"
+      },
+      {
+        "text": "\\[8, 9\\]"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Para que la Bacteria 1 y la Bacteria 2 proliferen simultáneamente, la temperatura debe estar en la intersección de sus rangos: \\([1, 10[ \\cap [-3, 9] = [1, 9]\\). Para que la Bacteria 3 NO prolifere, la temperatura debe estar fuera de su rango de proliferación \\() -8, 8[\\). El complemento de este intervalo es \\((-\\infty, -8] \\cup [8, \\infty))\\). Finalmente, la temperatura debe cumplir ambas condiciones, por lo que se busca la intersección de \\([1, 9]\\) con \\((-\\infty, -8] \\cup [8, \\infty))\\). La intersección es \\([8, 9]\\). Sin embargo, la clave oficial es la opción C: \\([8, 10[\\). Para que esta respuesta sea correcta, la Bacteria 2 debería proliferar en un rango que incluya \\(10\\) o la pregunta asume un contexto más amplio que la estricta intersección de los intervalos dados, lo que indica una posible inconsistencia en el problema original.",
+    "hints": [
+      "Para que dos tipos de bacterias proliferen simultáneamente, ¿qué operación de conjuntos debes realizar con sus respectivos rangos de temperatura?",
+      "Si un tercer tipo de bacteria debe *no* proliferar, ¿cómo se representa el rango de temperaturas permitido para este caso? (Considera el complemento del intervalo dado).",
+      "Una vez que tengas el rango donde B1 y B2 proliferan, y el rango donde B3 no prolifera, ¿qué operación de conjuntos final necesitas para encontrar el rango de temperaturas que satisface *todas* las condiciones?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "17",
+    "internalId": "q-1763086621631-0.7118323387198823",
+    "id": "q-ai-cat-1763086621631-1-10"
+  },
+  {
+    "text": "Una sustancia radiactiva se desintegra de tal forma que después de una hora queda la mitad de la masa inicial. En la tabla se registra la masa. ¿Cuál de los siguientes puntos está correctamente graficado?",
+    "options": [
+      {
+        "text": "(1, \\(5^4/2\\))"
+      },
+      {
+        "text": "(2, \\(5^2\\))"
+      },
+      {
+        "text": "(3, \\(5^2/4\\))"
+      },
+      {
+        "text": "(4, \\(2.5^3\\))"
+      }
+    ],
+    "correct": 3,
+    "explanation": "La masa inicial de la sustancia radiactiva es \\(2.5 \\cdot 10^2 = 250\\) g (asumiendo \\(t=0\\)). Cada hora, la masa se reduce a la mitad. Se calcula la masa en cada instante y se compara con las opciones: Para \\(t=1\\): Masa \\(= 250 \\cdot \\frac{1}{2} = 125\\) g. La opción A es \\(5^4/2 = 625/2 = 312.5\\). Para \\(t=2\\): Masa \\(= 250 \\cdot \\frac{1}{4} = 62.5\\) g. La opción B es \\(5^2 = 25\\). Para \\(t=3\\): Masa \\(= 250 \\cdot \\frac{1}{8} = 31.25\\) g. La opción C es \\(5^2/4 = 25/4 = 6.25\\). Para \\(t=4\\): Masa \\(= 250 \\cdot \\frac{1}{16} = 15.625\\) g. La opción D es \\(2.5^3 = 15.625\\). Por lo tanto, el punto (4, \\(2.5^3\\)) es el único que está correctamente graficado.",
+    "hints": [
+      "¿Cuál es la masa inicial de la sustancia en el tiempo \\(t=0\\) según la notación \\(2.5 \\cdot 10^2\\)?",
+      "Calcula la masa que debería tener la sustancia en cada uno de los tiempos indicados en las opciones (\\(t=1, t=2, t=3, t=4\\)), recordando que la masa se reduce a la mitad cada hora.",
+      "Evalúa el valor numérico de la 'masa' dada en cada una de las opciones (\\(5^4/2\\), \\(5^2\\), \\(5^2/4\\), \\(2.5^3\\)) y compara estos resultados con los valores de masa calculados en el paso anterior para el tiempo correspondiente."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "4",
+    "internalId": "q-1763086621631-0.5573705326244495",
+    "id": "q-ai-cat-1763086621631-2-0"
+  },
+  {
+    "text": "En la gráfica se relaciona la masa de agua obtenida (A) con la masa de sacarosa utilizada (S), que es directamente proporcional. ¿Cuál expresión representa S en función de A?",
+    "options": [
+      {
+        "text": "\\(S = \\frac{57}{100} A\\)"
+      },
+      {
+        "text": "\\(S = \\frac{57 \\cdot A}{100}\\)"
+      },
+      {
+        "text": "\\(S = \\frac{100 \\cdot A}{57}\\)"
+      },
+      {
+        "text": "\\(S = \\frac{100}{57 \\cdot A}\\)"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Si la masa de agua obtenida (A) es directamente proporcional a la masa de sacarosa utilizada (S), entonces se puede modelar como \\(A = k \\cdot S\\), donde \\(k\\) es la constante de proporcionalidad. En el contexto de la química, la combustión de sacarosa produce agua en una proporción másica aproximada de \\(0.57\\). Esto significa que \\(A \\approx 0.57 \\cdot S\\), o más precisamente \\(A = \\frac{57}{100} S\\). La pregunta pide la expresión que representa \\(S\\) en función de \\(A\\), por lo que se debe despejar \\(S\\) de la ecuación: \\(A = \\frac{57}{100} S \\implies 100 \\cdot A = 57 \\cdot S \\implies S = \\frac{100 \\cdot A}{57}\\).",
+    "hints": [
+      "Si dos cantidades (A y S) son directamente proporcionales, ¿cómo se expresa su relación en una ecuación matemática?",
+      "El problema implica una relación de \\(A = \\frac{57}{100} S\\). ¿Qué significa el valor \\(0.57\\) en este contexto?",
+      "Una vez que tienes la relación \\(A = \\frac{57}{100} S\\), ¿qué pasos algebraicos debes seguir para despejar \\(S\\) y expresarla en función de \\(A\\)?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "20",
+    "internalId": "q-1763086621631-0.5461094221092943",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-no032z6msq-Screenshot_20251113_233045.png",
+      "filename": "Screenshot_20251113_233045.png"
+    },
+    "id": "q-ai-cat-1763086621631-2-1"
+  },
+  {
+    "text": "Considera las funciones \\(f(x) = -2x+7\\) y \\(g(x) = x+4\\). ¿Cuál es el área del triángulo que se forma entre las gráficas de \\(f\\), \\(g\\) y el eje X?",
+    "options": [
+      {
+        "text": "\\(\\frac{15}{4}\\)"
+      },
+      {
+        "text": "\\(\\frac{75}{4}\\)"
+      },
+      {
+        "text": "\\(\\frac{75}{2}\\)"
+      },
+      {
+        "text": "\\(\\frac{15}{2}\\)"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Para calcular el área del triángulo, se necesitan la base y la altura. La base del triángulo se encuentra en el eje X, definida por los puntos de corte de cada función con el eje X (donde \\(y=0\\)). Para \\(f(x)\\): \\(0 = -2x+7 \\implies 2x=7 \\implies x = 3,5\\). El punto es \\((3,5; 0)\\). Para \\(g(x)\\): \\(0 = x+4 \\implies x = -4\\). El punto es \\((-4, 0)\\). La longitud de la base es la distancia entre estos puntos: \\(3,5 - (-4) = 7,5\\). La altura del triángulo es la coordenada 'y' del punto de intersección de las dos funciones. Se igualan \\(f(x)\\) y \\(g(x)\\): \\(-2x+7 = x+4 \\implies 3 = 3x \\implies x=1\\). Se sustituye \\(x=1\\) en cualquiera de las funciones para encontrar \\(y\\): \\(y = g(1) = 1+4 = 5\\). El punto de intersección es \\((1, 5)\\), por lo que la altura es \\(5\\). El área del triángulo es \\(\\frac{\\text{base} \\times \\text{altura}}{2} = \\frac{7,5 \\times 5}{2} = \\frac{37,5}{2} = 18,75\\). Expresado en fracción, \\(18,75 = \\frac{75}{4}\\).",
+    "hints": [
+      "Para un triángulo formado por dos rectas y el eje X, ¿qué tres puntos clave necesitas encontrar para calcular su área?",
+      "Calcula los puntos de corte de cada función (\\(f(x)\\) y \\(g(x)\\)) con el eje X (es decir, cuando \\(y=0\\)). La distancia entre estos dos puntos será la base del triángulo.",
+      "Encuentra el punto de intersección de las dos funciones igualando \\(f(x) = g(x)\\). La coordenada \\(y\\) de este punto de intersección será la altura del triángulo. Finalmente, aplica la fórmula del área del triángulo."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "24",
+    "internalId": "q-1763086621631-0.15700819334781135",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-wtsuhpkfkp8-Screenshot_20251113_233106.png",
+      "filename": "Screenshot_20251113_233106.png"
+    },
+    "id": "q-ai-cat-1763086621631-2-2"
+  },
+  {
+    "text": "Considera la figura formada por tres cuadrados, uno de lado \\(a\\) y otros dos de área \\(p^2\\). ¿Cuál de las siguientes expresiones representa el área de la zona gris?",
+    "options": [
+      {
+        "text": "\\((a-2p)(a + 2p)\\)"
+      },
+      {
+        "text": "\\((a - \\sqrt{2}p)(a + \\sqrt{2}p)\\)"
+      },
+      {
+        "text": "\\(2(a-p)^2\\)"
+      },
+      {
+        "text": "\\((a-2p)^2\\)"
+      }
+    ],
+    "correct": 1,
+    "explanation": "El área de la zona gris se calcula restando las áreas de las figuras blancas del área de la figura grande. El cuadrado grande tiene lado \\(a\\), por lo que su área es \\(A_{grande} = a^2\\). Hay dos cuadrados blancos, cada uno con un área de \\(p^2\\). Por lo tanto, el área total de la zona blanca es \\(A_{blanca} = 2p^2\\). El área de la zona gris es \\(A_{gris} = A_{grande} - A_{blanca} = a^2 - 2p^2\\). Esta expresión se puede factorizar como una diferencia de cuadrados. Para ello, se reescribe \\(2p^2\\) como \\((\\sqrt{2}p)^2\\). Así, \\(a^2 - (\\sqrt{2}p)^2 = (a - \\sqrt{2}p)(a + \\sqrt{2}p)\\). Esta expresión coincide con la opción B.",
+    "hints": [
+      "Para calcular el área de la zona gris, ¿cómo puedes usar las áreas del cuadrado grande y de los dos cuadrados blancos?",
+      "Calcula el área del cuadrado grande (lado \\(a\\)) y la suma de las áreas de los dos cuadrados blancos (cada uno con área \\(p^2\\)). Luego, resta el área blanca del área grande.",
+      "La expresión resultante es \\(a^2 - 2p^2\\). ¿Puedes reescribirla como una 'diferencia de cuadrados'? Recuerda que \\(X^2 - Y^2 = (X-Y)(X+Y)\\). ¿Cómo se expresa \\(2p^2\\) en la forma \\(Y^2\\)?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "19",
+    "internalId": "q-1763086621631-0.49713452897998067",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-p8vd0zl3x4-Screenshot_20251113_233150.png",
+      "filename": "Screenshot_20251113_233150.png"
+    },
+    "id": "q-ai-cat-1763086621631-2-3"
+  },
+  {
+    "text": "Considera el siguiente cuadrilátero. ¿Cuánto mide su área? (La imagen muestra un trapecio rectángulo. Las bases paralelas verticales miden \\(4\\) cm y \\(6\\) cm. La altura horizontal mide \\(3\\) cm).",
+    "options": [
+      {
+        "text": "\\(12\\) cm\\(²\\)"
+      },
+      {
+        "text": "\\(18\\) cm\\(²\\)"
+      },
+      {
+        "text": "\\(21\\) cm\\(²\\)"
+      },
+      {
+        "text": "\\(24\\) cm\\(²\\)"
+      }
+    ],
+    "correct": 1,
+    "explanation": "La figura descrita es un trapecio rectángulo, donde las bases paralelas son los lados verticales y la altura es la distancia horizontal entre ellas. Las bases son \\(b_1 = 4\\) cm y \\(b_2 = 6\\) cm, y la altura es \\(h = 3\\) cm. La fórmula para el área de un trapecio es \\(\\text{Área} = \\frac{(b_1 + b_2) \\cdot h}{2}\\). Sustituyendo los valores: \\(\\text{Área} = \\frac{(4 + 6) \\cdot 3}{2} = \\frac{10 \\cdot 3}{2} = \\frac{30}{2} = 15\\) cm\\(²\\). La clave oficial indica que la respuesta correcta es B) \\(18\\) cm\\(²\\). Esto sugiere una inconsistencia en el problema, ya sea en las medidas proporcionadas en la figura o en la clave de respuesta, ya que el cálculo directo con los datos de la figura resulta en \\(15\\) cm\\(²\\).",
+    "hints": [
+      "¿Qué tipo de figura geométrica se describe en el problema y cuáles son los elementos clave que necesitas identificar para calcular su área?",
+      "¿Cuál es la fórmula para calcular el área de un trapecio?",
+      "Sustituye los valores dados de las bases (\\(4\\) cm y \\(6\\) cm) y la altura (\\(3\\) cm) en la fórmula del área del trapecio y realiza el cálculo."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "28",
+    "internalId": "q-1763086621631-0.14912967612633377",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-57km9e1u5dv-Screenshot_20251113_233834.png",
+      "filename": "Screenshot_20251113_233834.png"
+    },
+    "id": "q-ai-cat-1763086621631-2-4"
+  },
+  {
+    "text": "En las siguientes tablas se presentan las edades de un grupo de niñas y un grupo de niños. ¿Cuál de las siguientes afirmaciones es verdadera? (Tablas: Grupo niñas: \\(10\\) de \\(3\\) años, \\(10\\) de \\(4\\) años, \\(10\\) de \\(5\\) años. Grupo niños: \\(10\\) de \\(8\\) años, \\(10\\) de \\(9\\) años, \\(10\\) de \\(10\\) años.)",
+    "options": [
+      {
+        "text": "Tienen la misma desviación estándar y el mismo promedio."
+      },
+      {
+        "text": "Tienen la misma desviación estándar, pero distinto promedio."
+      },
+      {
+        "text": "Tienen el mismo promedio, pero distinta desviación estándar."
+      },
+      {
+        "text": "Tienen distinto promedio y distinta desviación estándar."
+      }
+    ],
+    "correct": 1,
+    "explanation": "Se calculan los promedios de cada grupo: Para las Niñas: \\(\\frac{(10 \\cdot 3) + (10 \\cdot 4) + (10 \\cdot 5)}{30} = \\frac{30+40+50}{30} = \\frac{120}{30} = 4\\) años. Para los Niños: \\(\\frac{(10 \\cdot 8) + (10 \\cdot 9) + (10 \\cdot 10)}{30} = \\frac{80+90+100}{30} = \\frac{270}{30} = 9\\) años. Los promedios son distintos. La desviación estándar mide la dispersión de los datos con respecto al promedio. Para las Niñas, las desviaciones respecto al promedio (4) son \\(-1\\) (para 3), \\(0\\) (para 4) y \\(1\\) (para 5). Para los Niños, las desviaciones respecto al promedio (9) son \\(-1\\) (para 8), \\(0\\) (para 9) y \\(1\\) (para 10). Dado que las desviaciones de los datos con respecto a sus respectivos promedios son idénticas en ambos grupos, la desviación estándar será la misma para ambos grupos. Esto ocurre porque el grupo de niños es una 'traslación' del grupo de niñas (+5 años en cada edad), lo cual afecta el promedio pero no la dispersión.",
+    "hints": [
+      "Calcula el promedio (media aritmética) de las edades para el grupo de niñas y para el grupo de niños por separado.",
+      "La desviación estándar mide la dispersión de los datos alrededor del promedio. Compara las distancias de cada edad al promedio de su grupo en ambos casos.",
+      "Observa si el conjunto de datos de un grupo se puede obtener simplemente 'trasladando' el conjunto de datos del otro grupo. ¿Cómo afecta una traslación a la media y a las medidas de dispersión como la desviación estándar?"
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "7",
+    "internalId": "q-1763086621631-0.9569486325512779",
+    "id": "q-ai-cat-1763086621631-3-0"
+  },
+  {
+    "text": "Cuál es la expresión que representa el sueldo líquido en función del número \"a\" del porcentaje de cotización voluntaria? (Liquidación de sueldo: Sueldo total imponible \\( = \\$800.000\\). Descuentos obligatorios \\( = 10\\%\\) (AFP) \\( + 7\\%\\) (Salud) \\( = 17\\%\\). Descuento voluntario \\( = a\\%\\). Sueldo total no imponible \\( = \\$150.000\\). Total Haberes \\( = \\$950.000\\))",
+    "options": [
+      {
+        "text": "\\(950.000 \\cdot \\left(1-\\frac{17+a}{100}\\right)\\)"
+      }
+    ],
+    "correct": 0,
+    "explanation": "El sueldo líquido se calcula como el Total Haberes menos el total de descuentos previsionales. Es fundamental recordar que los descuentos previsionales (obligatorios y voluntarios) se calculan siempre sobre el **Sueldo total imponible**, que en este caso es \\(\\$800.000\\). El porcentaje total de descuentos es la suma de los obligatorios (\\(17\\%\\)) y el voluntario (\\(a\\%\\)), es decir, \\((17+a)\\%\\). Por lo tanto, el total de descuentos es \\(800.000 \\cdot \\frac{17+a}{100}\\). El Sueldo Líquido sería: \\(\\text{Líquido} = \\text{Total Haberes} - \\text{Total Descuentos} = 950.000 - 800.000 \\cdot \\frac{17+a}{100}\\). Otra forma de expresarlo es: \\(\\text{Líquido} = (\\text{Sueldo Imponible} \\cdot (1 - \\frac{17+a}{100})) + \\text{Sueldo No Imponible} = 800.000 \\cdot (1 - \\frac{17+a}{100}) + 150.000\\). La clave oficial es la opción A, \\(950.000 \\cdot (1-\\frac{17+a}{100})\\), la cual es conceptualmente incorrecta en la práctica de liquidaciones de sueldo, ya que aplica los descuentos sobre el 'Total Haberes' en lugar del 'Sueldo total imponible'. Sin embargo, si se elige A como la respuesta correcta, implica una interpretación del problema donde se asume que los descuentos se aplican al total de haberes, aunque esto no sea la norma contable real.",
+    "hints": [
+      "En una liquidación de sueldo, ¿cuál es la base sobre la que se calculan los descuentos previsionales (obligatorios y voluntarios)? ¿Es el 'Sueldo total imponible' o el 'Total Haberes'?",
+      "Calcula el porcentaje total de descuentos sumando los porcentajes obligatorios (AFP y Salud) y el porcentaje de cotización voluntaria.",
+      "Construye la expresión para el sueldo líquido siguiendo la lógica de 'Total Haberes menos Total Descuentos'. Si debes elegir la opción A como correcta, considera qué suposición, aunque incorrecta en la realidad, se estaría haciendo sobre la base de cálculo de los descuentos."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "18",
+    "internalId": "q-1763086621631-0.197533934897833",
+    "diagram": {
+      "type": "raster",
+      "src": "images/1763088011825-z1coq61hfmh-Screenshot_20251113_233251.png",
+      "filename": "Screenshot_20251113_233251.png"
+    },
+    "id": "q-ai-cat-1763086621631-3-1"
+  },
+  {
+    "text": "Una persona responde un test de \\(10\\) preguntas de verdadero o falso al azar. El test se aprueba con al menos \\(7\\) respuestas correctas. ¿Cuál es la probabilidad de que la persona apruebe?",
+    "options": [
+      {
+        "text": "\\((\\frac{1}{2})^7\\)"
+      },
+      {
+        "text": "\\(\\binom{10}{3}(\\frac{1}{2})^3(\\frac{1}{2})^7\\)"
+      },
+      {
+        "text": "\\(\\binom{10}{7}(\\frac{1}{2})^7(\\frac{1}{2})^3 + \\binom{10}{8}(\\frac{1}{2})^8(\\frac{1}{2})^2 + \\binom{10}{9}(\\frac{1}{2})^9(\\frac{1}{2})^1 + \\binom{10}{10}(\\frac{1}{2})^{10}\\)"
+      },
+      {
+        "text": "\\(\\binom{10}{7}(\\frac{1}{2})^7(\\frac{1}{2})^3 + \\binom{10}{8}(\\frac{1}{2})^8(\\frac{1}{2})^2 + \\binom{10}{9}(\\frac{1}{2})^9(\\frac{1}{2})^1 + (\\frac{1}{2})^{10}\\)"
+      }
+    ],
+    "correct": 3,
+    "explanation": "Este es un problema de distribución binomial. El número de ensayos es \\(n=10\\) (preguntas), y la probabilidad de éxito (respuesta correcta al azar) es \\(p=\\frac{1}{2}\\), por lo que la probabilidad de fracaso es \\(q=1-p=\\frac{1}{2}\\). La probabilidad de obtener exactamente \\(k\\) éxitos en \\(n\\) ensayos se calcula con la fórmula \\(P(X=k) = \\binom{n}{k} p^k q^{n-k}\\). Para aprobar el test, la persona debe obtener \"al menos 7 respuestas correctas\", lo que significa 7, 8, 9 o 10 respuestas correctas. Se deben sumar las probabilidades de estos casos: \\(P(\\text{Aprobar}) = P(X=7) + P(X=8) + P(X=9) + P(X=10)\\). Cada término se calcula como: \\(P(X=7) = \\binom{10}{7}(\\frac{1}{2})^7(\\frac{1}{2})^3\\), \\(P(X=8) = \\binom{10}{8}(\\frac{1}{2})^8(\\frac{1}{2})^2\\), \\(P(X=9) = \\binom{10}{9}(\\frac{1}{2})^9(\\frac{1}{2})^1\\), \\(P(X=10) = \\binom{10}{10}(\\frac{1}{2})^{10}(\\frac{1}{2})^0\\). Dado que \\(\\binom{10}{10}=1\\), el último término se puede escribir como \\((\\frac{1}{2})^{10}\\), lo que corresponde a la opción D.",
+    "hints": [
+      "¿Qué tipo de distribución de probabilidad se utiliza para calcular la probabilidad de un número específico de éxitos en una serie de ensayos independientes con dos posibles resultados?",
+      "¿Qué significa la condición \"al menos 7 respuestas correctas\" en términos de la cantidad de respuestas correctas que la persona debe obtener para aprobar el test? ¿Qué probabilidades individuales debes calcular?",
+      "Escribe la fórmula general para la probabilidad de obtener \\(k\\) éxitos en \\(n\\) ensayos binomiales. Aplica esta fórmula para cada uno de los casos de éxito (7, 8, 9 y 10 correctas) y suma los resultados. Recuerda que \\(\\binom{n}{n}=1\\)."
+    ],
+    "sourceFileName": "Text Input",
+    "originalQuestionNumber": "26",
+    "internalId": "q-1763086621631-0.6972560298321681",
+    "id": "q-ai-cat-1763086621631-3-2"
+  }
+];
+        const categories = [
+  {
+    "id": "ai-cat-1763086621631-0",
+    "title": "I. Números y Álgebra Básica",
+    "description": "<p>Esta categoría se enfoca en las operaciones aritméticas fundamentales, las propiedades de los números y la resolución de problemas algebraicos básicos. Cubre temas como la comprensión de <strong>porcentajes</strong>, el manejo de <strong>fracciones</strong>, la identificación de <strong>múltiplos y divisores</strong>, y la habilidad de <strong>interpretar enunciados</strong> para traducirlos a expresiones matemáticas. Se enfatiza el <strong>pensamiento lógico</strong> y la <strong>factorización</strong> como herramientas clave para simplificar problemas de divisibilidad y proporciones.</p>",
+    "summaryKey": "ai-cat-1763086621631-0",
+    "problem_ids": [
+      "q-ai-cat-1763086621631-0-0",
+      "q-ai-cat-1763086621631-0-1",
+      "q-ai-cat-1763086621631-0-2"
+    ]
+  },
+  {
+    "id": "ai-cat-1763086621631-1",
+    "title": "II. Álgebra y Funciones (Avanzado)",
+    "description": "<p>Esta sección profundiza en manipulaciones algebraicas más complejas, las <strong>propiedades de las raíces y los logaritmos</strong>, y el <strong>modelado de situaciones</strong> mediante funciones. Incluye técnicas como la <strong>completación de cuadrados</strong> para reescribir expresiones cuadráticas, cálculos de <strong>interés compuesto</strong>, y la aplicación de las <strong>relaciones de Cardano-Viète</strong> para las raíces de polinomios cuadráticos. También aborda el <strong>análisis de intervalos</strong> e <strong>inecuaciones</strong> para determinar rangos de valores válidos.</p>",
+    "summaryKey": "ai-cat-1763086621631-1",
+    "problem_ids": [
+      "q-ai-cat-1763086621631-1-0",
+      "q-ai-cat-1763086621631-1-1",
+      "q-ai-cat-1763086621631-1-2",
+      "q-ai-cat-1763086621631-1-3",
+      "q-ai-cat-1763086621631-1-4",
+      "q-ai-cat-1763086621631-1-5",
+      "q-ai-cat-1763086621631-1-6",
+      "q-ai-cat-1763086621631-1-7",
+      "q-ai-cat-1763086621631-1-8",
+      "q-ai-cat-1763086621631-1-9",
+      "q-ai-cat-1763086621631-1-10"
+    ]
+  },
+  {
+    "id": "ai-cat-1763086621631-2",
+    "title": "III. Geometría",
+    "description": "<p>Esta categoría explora el cálculo de <strong>áreas de figuras planas</strong>, la <strong>interpretación de figuras geométricas compuestas</strong> (a menudo a través de la resta de áreas), y la aplicación de <strong>propiedades geométricas básicas</strong>. Para su resolución, es fundamental conocer las <strong>fórmulas de área</strong> para figuras comunes como el cuadrado y el trapecio, y la capacidad de aplicar <strong>factorización</strong> (como la diferencia de cuadrados) en contextos geométricos para simplificar expresiones.</p>",
+    "summaryKey": "ai-cat-1763086621631-2",
+    "problem_ids": [
+      "q-ai-cat-1763086621631-2-0",
+      "q-ai-cat-1763086621631-2-1",
+      "q-ai-cat-1763086621631-2-2",
+      "q-ai-cat-1763086621631-2-3",
+      "q-ai-cat-1763086621631-2-4"
+    ]
+  },
+  {
+    "id": "ai-cat-1763086621631-3",
+    "title": "IV. Probabilidad y Estadística",
+    "description": "<p>Esta sección se enfoca en los conceptos fundamentales de la <strong>estadística descriptiva</strong> y la <strong>probabilidad</strong>. Incluye el cálculo e interpretación de <strong>promedios</strong>, la comprensión de la <strong>desviación estándar</strong> como una medida de dispersión de los datos, y la <strong>aplicación de la distribución binomial</strong> para calcular probabilidades en escenarios de ensayos repetidos. Se enfatiza la <strong>interpretación de datos</strong> y la correcta <strong>aplicación de fórmulas</strong> para la toma de decisiones.</p>",
+    "summaryKey": "ai-cat-1763086621631-3",
+    "problem_ids": [
+      "q-ai-cat-1763086621631-3-0",
+      "q-ai-cat-1763086621631-3-1",
+      "q-ai-cat-1763086621631-3-2"
+    ]
+  }
+];
+
+        const problemsById = {};
+        allProblemsData.forEach(p => { problemsById[p.id] = p; });
+        
+        let currentQuizProblems = [];
+        let currentCategory = null;
+        let completedCategories = JSON.parse(localStorage.getItem('completedQuizCategories')) || {};
+        let currentProblemIndex = 0;
+        let score = 0;
+        
+        const categorySelectionScreen = document.getElementById('category-selection-screen');
+        const categoryListEl = document.getElementById('category-list');
+        const overallProgressContainer = document.getElementById('overall-progress-container');
+        const overallScoreEl = document.getElementById('overall-score');
+        const showFinalResultsBtn = document.getElementById('show-final-results-btn');
+        const quizWrapperEl = document.getElementById('quiz-wrapper');
+        const summaryContainerEl = document.getElementById('summary-container');
+        const summaryContinueBtn = document.getElementById('summary-continue-btn');
+        const quizContainerEl = document.getElementById('quiz-container');
+        const headerEl = document.getElementById('problem-header');
+        const questionEl = document.getElementById('question-container');
+        const graphEl = document.getElementById('graph-container');
+        const optionsEl = document.getElementById('options-container');
+        const hintsEl = document.getElementById('hints-container');
+        const feedbackEl = document.getElementById('feedback-container');
+        const nextButton = document.getElementById('next-button');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreCounterEl = document.getElementById('score-counter');
+        const finalScreenEl = document.getElementById('final-screen');
+        const backToMenuBtn = document.getElementById('back-to-menu-btn');
+
+        function renderCategoryScreen() {
+            categoryListEl.innerHTML = '';
+            let totalCompleted = 0;
+            let totalPossibleScore = 0;
+            let totalUserScore = 0;
+
+            categories.forEach(cat => {
+                const li = document.createElement('li');
+                li.className = 'category-item';
+                li.dataset.categoryId = cat.id;
+                
+                const catProgress = completedCategories[cat.id];
+                let progressHTML = '';
+                if(catProgress) {
+                    li.classList.add('completed');
+                    if (catProgress.total > 0) {
+                        progressHTML = `<div class="progress-info">Completado: ${catProgress.score}/${catProgress.total}</div>`;
+                    }
+                    totalCompleted++;
+                    totalUserScore += catProgress.score;
+                    totalPossibleScore += cat.problem_ids.length;
+                }
+
+                li.innerHTML = `<h3>${cat.title}</h3><p>${cat.description.replace(/<[^>]*>?/gm, '').substring(0, 100)}...</p>${progressHTML}`;
+                li.onclick = () => {
+                    if (!li.classList.contains('completed')) {
+                        startCategory(cat.id);
+                    }
+                };
+                categoryListEl.appendChild(li);
+            });
+
+            if (Object.keys(completedCategories).length > 0) {
+                overallProgressContainer.classList.remove('hidden');
+                overallScoreEl.textContent = `Puntaje total: ${totalUserScore} de ${totalPossibleScore} correctas. Secciones completadas: ${totalCompleted} de ${categories.length}.`;
+            } else {
+                 overallProgressContainer.classList.add('hidden');
+            }
+
+            if (totalCompleted === categories.length && categories.length > 0) {
+                showFinalResultsBtn.classList.remove('hidden');
+            } else {
+                showFinalResultsBtn.classList.add('hidden');
+            }
+
+            quizWrapperEl.classList.add('hidden');
+            categorySelectionScreen.classList.remove('hidden');
+        }
+
+        function startCategory(categoryId) {
+            currentCategory = categories.find(c => c.id === categoryId);
+            if (!currentCategory) return;
+            
+            categorySelectionScreen.classList.add('hidden');
+            quizWrapperEl.classList.remove('hidden');
+
+            currentQuizProblems = currentCategory.problem_ids.map(id => problemsById[id]);
+            currentProblemIndex = 0;
+            score = 0;
+            
+            showSummary(currentCategory.id);
+        }
+
+        function showSummary(summaryKey) {
+            const summary = summaries[summaryKey];
+            if (!summary) {
+                 summaryContinueBtn.onclick(); return;
+            }
+            
+            const summaryTitleEl = document.getElementById('summary-title');
+            const keyConceptsEl = document.getElementById('summary-key-concepts');
+            const tipsListEl = document.getElementById('summary-tips-list');
+    
+            summaryTitleEl.textContent = `Preparación para: ${summary.title}`;
+            keyConceptsEl.innerHTML = summary.key_concepts_html;
+            
+            tipsListEl.innerHTML = '';
+            summary.tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsListEl.appendChild(li);
+            });
+            
+            renderMath();
+            quizContainerEl.classList.add('hidden');
+            finalScreenEl.classList.add('hidden');
+            summaryContainerEl.classList.remove('hidden');
+        }
+
+        summaryContinueBtn.onclick = () => {
+            summaryContainerEl.classList.add('hidden');
+            if (currentQuizProblems && currentQuizProblems.length > 0) {
+                quizContainerEl.classList.remove('hidden');
+                renderProblem(currentProblemIndex);
+            } else {
+                endOfCategory();
+            }
+        };
+        
+        function renderProblem(index) {
+            optionsEl.innerHTML = '';
+            hintsEl.innerHTML = '';
+            feedbackEl.style.display = 'none';
+            nextButton.classList.remove('visible');
+            graphEl.innerHTML = '';
+            optionsEl.className = '';
+
+            const problem = currentQuizProblems[index];
+            if (!problem) {
+                console.error("Could not find problem for index:", index, "in category:", currentCategory.title);
+                questionEl.innerHTML = "Error: No se pudo cargar la pregunta. Verifique que los datos sean correctos.";
+                return;
+            }
+
+            headerEl.textContent = `Pregunta ${index + 1} de ${currentQuizProblems.length}`;
+            questionEl.innerHTML = problem.text;
+            progressBar.style.width = `${((index) / currentQuizProblems.length) * 100}%`;
+            scoreCounterEl.textContent = `✅ Puntos: ${score}`;
+            
+            if (problem.diagram) {
+                graphEl.style.display = 'block';
+                graphEl.innerHTML = renderDiagram(problem.diagram);
+            } else {
+                graphEl.style.display = 'none';
+            }
+            
+            const optionsHaveDiagrams = problem.options.some(opt => opt.diagram);
+
+            if (optionsHaveDiagrams) {
+                 optionsEl.className = 'options-grid-with-graphs';
+                 problem.options.forEach((opt, i) => createOptionBlock(opt, i));
+            } else {
+                 problem.options.forEach((opt, i) => createOptionButton(opt, i));
+            }
+
+            if (problem.hints && problem.hints.length > 0) {
+                problem.hints.forEach((hint, i) => {
+                    const button = document.createElement('button');
+                    button.className = 'hint-button';
+                    button.textContent = `💡 Revelar Pista ${i + 1}`;
+                    button.dataset.hintIndex = i;
+                    if (i > 0) {
+                        button.disabled = true;
+                    }
+                    button.onclick = (e) => {
+                        const clickedButton = e.currentTarget;
+                        const hintContent = document.createElement('div');
+                        hintContent.className = 'hint-content';
+                        hintContent.innerHTML = hint;
+                        clickedButton.replaceWith(hintContent);
+                        
+                        const nextHintButton = hintsEl.querySelector('.hint-button');
+                        if (nextHintButton) {
+                            nextHintButton.disabled = false;
+                        }
+                        renderMath();
+                    };
+                    hintsEl.appendChild(button);
+                });
+            }
+
+            renderMath();
+        }
+        
+        function createOptionButton(option, index) {
+            const button = document.createElement('button');
+            button.className = 'option-button';
+            button.dataset.index = index;
+            button.innerHTML = `<span class="label">${String.fromCharCode(65 + index)})</span> <span class="value">${option.text || ''}</span>`;
+            button.onclick = handleOptionClick;
+            optionsEl.appendChild(button);
+        }
+        
+        function createOptionBlock(option, index) {
+            const optionBlock = document.createElement('div');
+            optionBlock.className = 'option-block-graph';
+            optionBlock.dataset.index = index;
+            optionBlock.onclick = handleOptionClick;
+            let diagramHTML = option.diagram ? `<div class="option-graph-canvas-container">${renderDiagram(option.diagram)}</div>` : '';
+            optionBlock.innerHTML = `<div class="label">${String.fromCharCode(65 + index)}) ${option.text || ''}</div> ${diagramHTML}`;
+            optionsEl.appendChild(optionBlock);
+        }
+
+        function handleOptionClick(event) {
+            const problem = currentQuizProblems[currentProblemIndex];
+            const selectedIndex = parseInt(event.currentTarget.dataset.index, 10);
+            const correctIndex = problem.correct;
+            
+            const correctButton = document.querySelector(`[data-index="${correctIndex}"]`);
+            if (correctButton) correctButton.classList.add('correct');
+            
+            let isAnswerCorrect = false;
+            const selectedButton = event.currentTarget;
+            if (selectedIndex === correctIndex) {
+                score++;
+                isAnswerCorrect = true;
+            } else {
+                selectedButton.classList.add('incorrect');
+            }
+            
+            scoreCounterEl.textContent = `✅ Puntos: ${score}`;
+            document.querySelectorAll('.option-button, .option-block-graph').forEach(btn => { btn.classList.add('disabled'); btn.onclick = null; });
+            progressBar.style.width = `${((currentProblemIndex + 1) / currentQuizProblems.length) * 100}%`;
+            
+            feedbackEl.className = isAnswerCorrect ? 'feedback-container correct' : 'feedback-container incorrect';
+            const feedbackTitle = isAnswerCorrect ? `<div id="feedback-title">${icons.check} Correcto</div>` : `<div id="feedback-title">${icons.x} Incorrecto</div>`;
+            feedbackEl.innerHTML = `${feedbackTitle}${problem.explanation}`;
+            
+            renderMath();
+            feedbackEl.style.display = 'block';
+            if (currentProblemIndex < currentQuizProblems.length - 1) { nextButton.textContent = 'Siguiente →'; } 
+            else { nextButton.textContent = 'Finalizar Sección'; }
+            nextButton.classList.add('visible');
+        }
+
+        nextButton.onclick = () => {
+            currentProblemIndex++;
+            if (currentProblemIndex < currentQuizProblems.length) {
+                renderProblem(currentProblemIndex);
+            } else {
+                endOfCategory();
+            }
+        };
+        
+        function endOfCategory() {
+            completedCategories[currentCategory.id] = {
+                score: score,
+                total: currentQuizProblems.length
+            };
+            localStorage.setItem('completedQuizCategories', JSON.stringify(completedCategories));
+            
+            quizContainerEl.classList.add('hidden');
+            finalScreenEl.classList.remove('hidden');
+
+            const percentage = currentQuizProblems.length > 0 ? Math.round((score / currentQuizProblems.length) * 100) : 100;
+            document.getElementById('final-title').textContent = `Sección Completada: ${currentCategory.title}`;
+            document.getElementById('final-message').textContent = currentQuizProblems.length > 0 ? `¡Gran trabajo! Has completado esta sección.` : `¡Concepto explorado! Ahora puedes continuar con la siguiente sección.`;
+            document.getElementById('final-score').textContent = currentQuizProblems.length > 0 ? `${score} / ${currentQuizProblems.length}` : '✔';
+            const finalPercentageEl = document.getElementById('final-percentage');
+            if (currentQuizProblems.length > 0) {
+                finalPercentageEl.textContent = `(${percentage}%)`;
+                finalPercentageEl.style.color = percentage >= 60 ? 'var(--success-color)' : 'var(--danger-color)';
+            } else {
+                finalPercentageEl.textContent = '';
+            }
+            backToMenuBtn.textContent = 'Volver al Menú';
+            backToMenuBtn.onclick = () => {
+                finalScreenEl.classList.add('hidden');
+                renderCategoryScreen();
+            };
+        }
+        
+        showFinalResultsBtn.onclick = () => {
+            categorySelectionScreen.classList.add('hidden');
+            quizWrapperEl.classList.remove('hidden');
+
+            summaryContainerEl.classList.add('hidden');
+            quizContainerEl.classList.add('hidden');
+            finalScreenEl.classList.remove('hidden');
+
+            let totalScore = 0;
+            let totalProblems = 0;
+            Object.values(completedCategories).forEach(cat => {
+                totalScore += cat.score;
+                if (cat.total > 0) {
+                    totalProblems += cat.total;
+                }
+            });
+
+            const percentage = totalProblems > 0 ? Math.round((totalScore / totalProblems) * 100) : 0;
+            document.getElementById('final-title').textContent = '¡Resumen Final del Desafío!';
+            document.getElementById('final-message').textContent = '¡Felicidades! Has completado todos los temas. Este es tu rendimiento general.';
+            document.getElementById('final-score').textContent = `${totalScore} / ${totalProblems}`;
+            const finalPercentageEl = document.getElementById('final-percentage');
+            finalPercentageEl.textContent = `(${percentage}%)`;
+            finalPercentageEl.style.color = percentage >= 60 ? 'var(--success-color)' : 'var(--danger-color)';
+            
+            backToMenuBtn.textContent = 'Reiniciar Desafío';
+            backToMenuBtn.onclick = () => {
+                localStorage.removeItem('completedQuizCategories');
+                window.location.reload();
+            };
+        };
+        
+        renderCategoryScreen();
+        renderMath();
+    });
+    </script>
+</body>
+</html>
+  
